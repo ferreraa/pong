@@ -1,75 +1,34 @@
 var canvas = document.getElementById('canvas');
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
 
 //context
 var c = canvas.getContext('2d');
 
 
 
-function Ball(x, y, radius, style = 'blue', dx = 0, dy = 0) {
-    this x = x;
-    this.y = y;
-    this.r = r;
-    this.style = style;
 
-    this.velocity = [dx, dy];
-
-
-    //draw the ball
-    this.draw = function() {
-        c.beginPath();
-        c.fillStyle = this.style;
-        c.arc(this.x, this.y, this.r, 0, 2*Math.PI, true);
-        c.fill();
+function keyDownHandler(e) {
+    if(e.keyCode == keyCodeUp1) {
+        paddles[0].up = true;
     }
-
-    //move the ball
-    this.move = function() {
-        //move the ball
-        x+=velocity[0];
-        y+=velocity[1];
-        
-         //change direction when there is a collision
-        checkWallCollisions();    
-
-    }
-
-    //check the collisions with the top and bottom walls
-    this.checkWallCollisions = function() {
-
-        if(y-r <= 0 || y+r >= canvas.height) {
-            velocity[1] *= -1;
-        }
-    }
-
-
-    //check if the ball collides with a given Bar rectangle
-    this.checkBarCollision(bar) {
-        if(this.x+ this.r >= bar.x || this.x -)
+    else if(e.keyCode == keyCodeDown1) {
+        bars = true;
     }
 }
 
-function Bar(x, y, width, height, keyUp, keyDown) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-
-    const this.dy = 3;
-
-    this.keyUp = keyUp;
-    this.keyDown = keyDown;
-
-
-    //move the bar according to the key pressed. Doesn't move if the user tries to get out of the canvas or if no key is pressed
-    this.move() {
-        if(/*keyUp pressed*/false && y > 0) {
-            y-=dy;
-        }
-        if(/*keyDown pressed*/false && y+height < canvas.height) {
-            y+=dy;
-        }
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        rightPressed = false;
+    }
+    else if(e.keyCode == 37) {
+        leftPressed = false;
     }
 }
+
+
+
+
 
 
 
