@@ -24,11 +24,12 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
     //move the bar according to the key pressed. Doesn't move if the user tries to get out of the canvas or if no key is pressed
     this.move = function() {
 
-        var futureY = this.y + this.dy*this.direction;
+        var futureY = this.y + dy*this.direction;
         if(futureY > 0 && futureY < canvas.height) {
             this.y = futureY;
         }
         console.log(this.direction.toString());
+        console.log(futureY.toString());
     }
 
     this.draw = function() {
