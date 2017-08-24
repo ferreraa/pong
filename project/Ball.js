@@ -1,12 +1,13 @@
 //Ball class
 function Ball(x, y, radius, style = 'blue', dx = 0, dy = 0) {
-    this x = x;
+    this.x = x;
     this.y = y;
     this.r = r;
     this.style = style;
 
     this.velocity = [dx, dy];
 
+    var that = this;
 
     //draw the ball
     this.draw = function() {
@@ -19,8 +20,8 @@ function Ball(x, y, radius, style = 'blue', dx = 0, dy = 0) {
     //move the ball
     this.move = function() {
         //move the ball
-        x+=velocity[0];
-        y+=velocity[1];
+        this.x+=this.velocity[0];
+        this.y+=this.velocity[1];
         
          //change direction when there is a collision
         checkWallCollisions();    
@@ -28,16 +29,27 @@ function Ball(x, y, radius, style = 'blue', dx = 0, dy = 0) {
     }
 
     //check the collisions with the top and bottom walls
-    this.checkWallCollisions = function() {
+    var checkWallCollisions = function() {
 
-        if(y-r <= 0 || y+r >= canvas.height) {
-            velocity[1] *= -1;
+        //This one won't be necessary in the final version since the ball should only bounce on the top/bottom of screen
+        if (that.x-that.r <= 0 || that.x+that.r >= canvas.width) {
+            that.velocity[0] *= -1;
+        }
+
+
+        if(that.y-that.r <= 0 || that.y+that.r >= canvas.height) {
+            that.velocity[1] *= -1;
         }
     }
 
-
-    //check if the ball collides with a given Bar rectangle
-    this.checkBarCollision(bar) {
-        if(this.x+ this.r >= bar.x || this.x -)
-    }
 }
+
+/*example
+var ball1 = new Ball(x,y r, style, dx, dy);
+
+ball.draw();
+
+ball.move();
+
+var ball2 = new Ball()
+*/

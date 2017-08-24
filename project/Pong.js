@@ -9,21 +9,11 @@ var c = canvas.getContext('2d');
 
 
 function keyDownHandler(e) {
-    if(e.keyCode == keyCodeUp1) {
-        paddles[0].up = true;
-    }
-    else if(e.keyCode == keyCodeDown1) {
-        bars = true;
-    }
+    World.keyInputInteraction(e.keyCode);
 }
 
 function keyUpHandler(e) {
-    if(e.keyCode == 39) {
-        rightPressed = false;
-    }
-    else if(e.keyCode == 37) {
-        leftPressed = false;
-    }
+    World.keyReleasedInteraction(e.keyCode);
 }
 
 
@@ -47,58 +37,6 @@ var growth = -1
 var velocidad = [3,3]; 
 
 
-function drawCircle(x, y, r, style) {
-    c.beginPath();
-    c.fillStyle = style;
-    c.arc(x, y, r, 0, 2*Math.PI, true);
-    c.fill();
-}
-
-
-
-
-// Movement functions
-
-//change behaviour when the ball touchs the wall
-function checkWallCollisions() {
-    if (x-r <= 0 || x+r >= canvas.width) {
-        velocidad[0] *= -1;
-    }
-
-    if(y-r <= 0 || y+r >= canvas.height) {
-        velocidad[1] *= -1;
-    }
-
-
-    //rectangle in the middle
-    if ((x+r >= 250 && r+x <= 300) || (x-r <=300 && x-r >= 250))
-    {
-        if((y+r <= 150 && y-r >= 100)) {
-            velocidad[0] *= -1;
-        }
-    }
-}
-
-function movement() {
-
-
-    //move the ball
-    x+=velocidad[0];
-    y+=velocidad[1];
-    
-    //change direction when there is a collision
-    checkWallCollisions();    
-
-}
-
-
-// Growing functions (useless, make the ball bigger or smaller)
-function grow() {
-    if(r > 30 || r < 1) growth *=-1;
-
-    r+=growth;
-
-}
 
 
 
@@ -107,18 +45,19 @@ function animate(time) {
 
     c.clearRect(0,0 , canvas.width, canvas.height);
 
-    movement(); //moves the ball
+    //TODO DELETE THESE
+//    movement(); //moves the ball
 //    grow(); //makes the ball grow (or reduce)
 
-    drawCircle(x,y, r, 'blue');
-c.fillStyle = 'red';
-
-c.rect(250,100,50,50);
-c.stroke();
-c.fill();
+    World.evolve();
     
     window.requestAnimationFrame(animate);
 }
 
+
+
+//var ball = new Ball(50, 50, 20, 'blue', 3, 3)
+World.addBall(new Ball(50, 50, 20, 'blue', 1, 3));
+World.addPaddle(new Paddle(100,100, 30, 100, 38, 40, 'red'));
 animate();
 

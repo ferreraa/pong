@@ -38,12 +38,13 @@ function checkWallCollisions() {
         velocidad[0] *= -1;
     }
 
-    if ((x+r >= 250 && r+x <= 300) || (x-r <=300 && x-r >= 250))
+/*    if ((x+r >= 250 && r+x <= 300) || (x-r <=300 && x-r >= 250))
     {
         if((y+r <= 150 && y-r >= 100)) {
             velocidad[0] *= -1;
         }
     }
+*/    
     if(y-r <= 0 || y+r >= canvas.height) {
         velocidad[1] *= -1;
     }
@@ -58,8 +59,36 @@ function movement() {
     
     //change direction when there is a collision
     checkWallCollisions();    
+    if( RectCircleColliding({x:x,y:y,r:r}, {x:250,y:100,w:50,h:50}) ) {
+        velocidad[0] *=-1;
+        velocidad[1] *=-1;
+    }
 
 }
+
+
+/*
+var circle={x:100,y:290,r:10};
+var rect={x:100,y:100,w:40,h:100};
+*/
+// return true if the rectangle and circle are colliding
+function RectCircleColliding(circle,rect){
+    var distX = Math.abs(circle.x - rect.x-rect.w/2);
+    var distY = Math.abs(circle.y - rect.y-rect.h/2);
+
+    if (distX > (rect.w/2 + circle.r)) { return false; }
+    if (distY > (rect.h/2 + circle.r)) { return false; }
+
+    if (distX <= (rect.w/2)) { return true; } 
+    if (distY <= (rect.h/2)) { return true; }
+
+    var dx=distX-rect.w/2;
+    var dy=distY-rect.h/2;
+    return (dx*dx+dy*dy<=(circle.r*circle.r));
+}
+
+
+
 
 
 // Growing functions (useless, make the ball bigger or smaller)
