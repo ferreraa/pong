@@ -10,6 +10,7 @@ var c = canvas.getContext('2d');
 
 function keyDownHandler(e) {
     World.keyInputInteraction(e.keyCode);
+//    console.log(e.keyCode.toString());
 }
 
 function keyUpHandler(e) {
@@ -20,34 +21,10 @@ function keyUpHandler(e) {
 
 
 
-
-
-//position of the ball
-var x = 50;
-var y = 200;
-
-//Radius
-var r = 15;
-
-//useless, decides if the ball goes bigger or smaller
-var growth = -1
-
-
-//speed vector [x,y] => modified when a wall is touched
-var velocidad = [3,3]; 
-
-
-
-
-
-
 function animate(time) {
 
     c.clearRect(0,0 , canvas.width, canvas.height);
 
-    //TODO DELETE THESE
-//    movement(); //moves the ball
-//    grow(); //makes the ball grow (or reduce)
 
     World.evolve();
     

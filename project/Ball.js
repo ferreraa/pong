@@ -1,5 +1,5 @@
 //Ball class
-function Ball(x, y, radius, style = 'blue', dx = 0, dy = 0) {
+function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
     this.x = x;
     this.y = y;
     this.r = r;
