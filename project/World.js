@@ -19,16 +19,36 @@ var World = new function() {
     function checkBallPaddleCollisions () {
         for(var i = 0 ; i < balls.length ; i++) {
             for(var j = 0 ; j < paddles.length ; j++) {
-                BallPaddleColliding(balls[i], paddles[j])
+                if( RectBallColliding(balls[i], paddles[j]) ) {
+                    paddles[i].stopPaddle();
+                }
+
+/*
+                switch (collision) {
+                    case 0:
+                        return;
+                    case 1:
+                        balls[i].velocity[1] *= -1;
+                        break;
+                    case 2:
+                        balls[i].velocity[0] *= -1;
+                        break;
+                    case 3:
+                        balls[i].velocity[1] *= -1;
+                        balls[i].velocity[0] *= -1;
+                }
+*/
             }
         }
     }
 
     this.evolve = function() {
         evolveBalls();
-        evolvePaddles();
 
         checkBallPaddleCollisions();
+
+        evolvePaddles();
+
     }
 
     function evolveBalls() {
@@ -67,24 +87,36 @@ var World = new function() {
 }
 
 // return true if the rectangle and ball are colliding
-function RectBallColliding(ball,rect){
-    var distX = Math.abs(ball.x - rect.x-rect.w/2);
-    var distY = Math.abs(ball.y - rect.y-rect.h/2);
+//return 0 if no collision, 1 if left/right collision, 2 if top/bottom collision 3 if corner collision
+function RectBallColliding(ball,paddle){
+    var distX = Math.abs(ball.x - paddle.x-paddle.width/2);
+    var distY = Math.abs(ball.y - paddle.y-paddle.height/2);
 
-    if (distX > (rect.w/2 + ball.r)) { return false; }
-    if (distY > (rect.h/2 + ball.r)) { return false; }
+    if (distX > (paddle.width/2 + ball.r)) { return false; }
+    if (distY > (paddle.height/2 + ball.r)) { return false; }
 
-    if (distX <= (rect.w/2)) { return true; } 
-    if (distY <= (rect.h/2)) { return true; }
+    if (distX <= (paddle.width/2)) { 
+        ball.velocity[1] *= -1;
+        return true;
+    }
 
-    var dx=distX-rect.w/2;
-    var dy=distY-rect.h/2;
-    return (dx*dx+dy*dy<=(ball.r*ball.r));
+    if (distY <= (paddle.height/2)) { 
+        ball.velocity[0] *= -1;
+        return true;
+    }
+
+    var dx=distX-paddle.width/2;
+    var dy=distY-paddle.height/2;
+    if (dx*dx+dy*dy<=(ball.r*ball.r)) {
+        ball.velocity[0] *= -1;
+        ball.velocity[1] *= -1;
+        return true;
+    }
+    
 }
 
 function BallPaddleColliding(ball, paddle) {
-
-    //array of rectangles (Rectangle : {x,y,w,h}). left&right sides: 0&1. top&bottom: 2&3
+/*    //array of rectangles (Rectangle : {x,y,w,h}). left&right sides: 0&1. top&bottom: 2&3
     var paddleHitBoxes = paddle.getHitBoxes(ball);
 
     //if the ball collides with the left/right side, dx*-1
@@ -98,6 +130,7 @@ function BallPaddleColliding(ball, paddle) {
         || RectBallColliding(ball, paddleHitBoxes[3])) {
         ball.velocity[1] *= -1;
     }
+*/
 }
 
 /*

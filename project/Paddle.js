@@ -21,15 +21,25 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
     this.downKey = downKey;
 
 
+
+    //if a ball collides with this paddle, it must stop the paddle so the ball can't enter it.
+    var stopNextMove = false;
+
+    this.stopPaddle = function() {
+        stopNextMove = true;
+    }
+
     //move the bar according to the key pressed. Doesn't move if the user tries to get out of the canvas or if no key is pressed
     this.move = function() {
+        if(stopNextMove) {
+            stopNextMove = false;
+            return;
+        }
 
         var futureY = this.y + dy*this.direction;
-        if(futureY > 0 && futureY < canvas.height) {
+        if(futureY > 0 && futureY + this.height < canvas.height) {
             this.y = futureY;
         }
-        console.log(this.direction.toString());
-        console.log(futureY.toString());
     }
 
     this.draw = function() {
@@ -40,7 +50,13 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
         c.fill();
 
     }
+
+
+
     /**
+
+        USELESS!!!
+
         function returning the rectangles representing the hitbox of the paddle (if a ball gets inside => collision)
         result: array[left, right, top, bottom].
         The structure of a rectangle is: {x,y, w,h}.
