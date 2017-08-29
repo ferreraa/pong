@@ -37,7 +37,7 @@ function Paddle(x, y, width, height, style = 'blue', upKey = -1, downKey = -1 ) 
         }
 
 //        var futureY = this.y + dy*this.direction;
-        if( checkWallCollision() ) {
+        if( !checkWallCollision() ) {
             this.y = futureY;
         }
     }
@@ -57,18 +57,15 @@ function Paddle(x, y, width, height, style = 'blue', upKey = -1, downKey = -1 ) 
         // console.log(that.direction);
         // console.log(futureY > 0);
         // console.log(futureY + that.height < canvas.height);
-        return futureY >= 0 && futureY + that.height <= canvas.height;
+        return futureY < 0 || futureY + that.height > canvas.height;
     }
 
 
     this.automaticChoice = function() {
-        if(checkWallCollision()) {
+        if( checkWallCollision() ) {
             this.direction *= -1;
         }
     } 
-
-
-
 
 
 
