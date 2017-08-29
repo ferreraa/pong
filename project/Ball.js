@@ -45,8 +45,12 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
     var checkWallCollisions = function() {
 
         //This one won't be necessary in the final version since the ball should only bounce on the top/bottom of screen
-        if (that.x-that.r <= 0 || that.x+that.r >= canvas.width) {
-            that.velocity[0] *= -1;
+        if (that.x-that.r <= 0 ){
+          scored(1)
+
+        }
+        else if (that.x+that.r >= canvas.width) {
+          scored(0)
         }
 
 
@@ -62,6 +66,14 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
         else {
             this.y = paddle.y - this.r
         }
+    }
+    function scored(winner){
+      console.log(this.x)
+
+      World.score[winner]++;
+      that.x = middle[0]
+      that.y = middle[1]
+
     }
 
 }

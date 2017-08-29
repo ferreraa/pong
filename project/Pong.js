@@ -42,7 +42,7 @@ World.add(new Ball(middle[0], middle[1], 20, 'blue', 3, 3));
 World.add(new Paddle(1,1, paddleWidths, paddleHeights, 'red' ,38, 40 ));
 
 
-var botPaddle = new Paddle(canvas.width - paddleWidths, 1 , paddleWidths, paddleHeights, 'green');
+var botPaddle = new Paddle(canvas.width - paddleWidths, middle[1] - paddleHeights/2 , paddleWidths, paddleHeights, 'green');
 
-//World.addPaddle(botPaddle);
+World.addPaddle(botPaddle);
 animate();
