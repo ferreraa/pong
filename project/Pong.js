@@ -44,6 +44,6 @@ World.add(new Paddle(1,1, paddleWidths, paddleHeights, 'red' ,38, 40 ));
 
 var botPaddle = new Paddle(canvas.width - paddleWidths, 1 , paddleWidths, paddleHeights, 'green');
 
-World.addPaddle(botPaddle);
+//World.addPaddle(botPaddle);
 animate();
 
