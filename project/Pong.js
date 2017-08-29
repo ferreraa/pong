@@ -27,7 +27,7 @@ function animate(time) {
 
 
     World.evolve();
-    
+
     window.requestAnimationFrame(animate);
 }
 
@@ -35,10 +35,10 @@ function animate(time) {
 
 var paddleWidths = 30;
 var paddleHeights = 100;
-
+var middle = [canvas.width/2 , canvas.height/2]
 
 //var ball = new Ball(50, 50, 20, 'blue', 3, 3)
-World.add(new Ball(50, 50, 20, 'blue', 3, 3));
+World.add(new Ball(middle[0], middle[1], 20, 'blue', 3, 3));
 World.add(new Paddle(1,1, paddleWidths, paddleHeights, 'red' ,38, 40 ));
 
 
@@ -46,4 +46,3 @@ var botPaddle = new Paddle(canvas.width - paddleWidths, 1 , paddleWidths, paddle
 
 World.addPaddle(botPaddle);
 animate();
-

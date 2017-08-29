@@ -7,7 +7,7 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
 
     this.velocity = [dx, dy];
 
-    this.colliding = false;
+    this.colliding = new Array ();
 
     var that = this;
 
@@ -30,9 +30,9 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
 
         this.x+=this.velocity[0];
         this.y+=this.velocity[1];
-        
+
          //change direction when there is a collision
-        checkWallCollisions();    
+        checkWallCollisions();
 
     }
 

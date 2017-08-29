@@ -6,6 +6,7 @@ var World = new function() {
     //list of paddles
     var paddles = new Array();
 
+
     var that = this;
 
 
@@ -29,24 +30,29 @@ var World = new function() {
     function checkBallPaddleCollisions () {
         for(var i = 0 ; i < balls.length ; i++) {
             for(var j = 0 ; j < paddles.length ; j++) {
-
-                console.log(balls[i].colliding);
+                if (typeof balls[i].colliding[j] === 'undefined' ) {
+                  console.log("ups")
+                  balls[i].colliding[j] = false;
+                }
+                console.log(balls[i].colliding[j]);
 
                 if( RectBallColliding(balls[i], paddles[j]) ) {
                     paddles[j].stopPaddle();
                     console.log("if1");
 
-                    if( balls[i].colliding ) {
+                    if( balls[i].colliding[j] ) {
                         balls[i].getOutOf(paddles[j]);
                         console.log("if2");
                     } else {
-                        balls[i].colliding = true;
+                        balls[i].colliding[j] = true;
                         console.log("else first collision");
                     }
 
                 } else {
-                    balls[i].colliding = false;
+                    balls[i].colliding[j] = false;
                     console.log("not colliding");
+
+
                 }
 
 
@@ -87,7 +93,7 @@ var World = new function() {
 
     function evolvePaddles() {
         for (var i = paddles.length - 1; i >= 0; i--) {
-            
+
             if(paddles[i].upKey == -1) {
                 paddles[i].automaticChoice();
             }
@@ -103,7 +109,7 @@ var World = new function() {
         for (var i = paddles.length - 1; i >= 0; i--) {
             if(paddles[i].upKey == key) {
                 paddles[i].direction = -1;
-            } 
+            }
             else if (paddles[i].downKey == key) {
                 paddles[i].direction = 1;
             }
@@ -129,12 +135,12 @@ function RectBallColliding(ball,paddle){
     if (distX > (paddle.width/2 + ball.r)) { return false; }
     if (distY > (paddle.height/2 + ball.r)) { return false; }
 
-    if (distX <= (paddle.width/2)) { 
+    if (distX <= (paddle.width/2)) {
         ball.velocity[1] *= -1;
         return true;
     }
 
-    if (distY <= (paddle.height/2)) { 
+    if (distY <= (paddle.height/2)) {
         ball.velocity[0] *= -1;
         return true;
     }
@@ -146,7 +152,7 @@ function RectBallColliding(ball,paddle){
         ball.velocity[1] *= -1;
         return true;
     }
-    
+
 }
 
 function BallPaddleColliding(ball, paddle) {
