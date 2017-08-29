@@ -33,8 +33,17 @@ function animate(time) {
 
 
 
+var paddleWidths = 30;
+var paddleHeights = 100;
+
+
 //var ball = new Ball(50, 50, 20, 'blue', 3, 3)
-World.addBall(new Ball(50, 50, 20, 'blue', 1, 3));
-World.addPaddle(new Paddle(100,100, 30, 100, 38, 40, 'red'));
+World.add(new Ball(50, 50, 20, 'blue', 3, 3));
+World.add(new Paddle(1,1, paddleWidths, paddleHeights, 'red' ,38, 40 ));
+
+
+var botPaddle = new Paddle(canvas.width - paddleWidths, 1 , paddleWidths, paddleHeights, 'green');
+
+World.addPaddle(botPaddle);
 animate();
 

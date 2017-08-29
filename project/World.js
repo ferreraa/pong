@@ -8,6 +8,16 @@ var World = new function() {
 
     var that = this;
 
+
+    this.add = function(object) {
+        if( object instanceof Ball) {
+            balls.push(object);
+        }
+        else if ( object instanceof Paddle ) {
+            paddles.push(object);
+        }
+    }
+
     this.addBall = function(ball) {
         balls[balls.length] = ball;
     }
@@ -19,9 +29,26 @@ var World = new function() {
     function checkBallPaddleCollisions () {
         for(var i = 0 ; i < balls.length ; i++) {
             for(var j = 0 ; j < paddles.length ; j++) {
+
+                console.log(balls[i].colliding);
+
                 if( RectBallColliding(balls[i], paddles[j]) ) {
-                    paddles[i].stopPaddle();
+                    paddles[j].stopPaddle();
+                    console.log("if1");
+
+                    if( balls[i].colliding ) {
+                        balls[i].getOutOf(paddles[j]);
+                        console.log("if2");
+                    } else {
+                        balls[i].colliding = true;
+                        console.log("else first collision");
+                    }
+
+                } else {
+                    balls[i].colliding = false;
+                    console.log("not colliding");
                 }
+
 
 /*
                 switch (collision) {
@@ -60,8 +87,15 @@ var World = new function() {
 
     function evolvePaddles() {
         for (var i = paddles.length - 1; i >= 0; i--) {
+            
+            if(paddles[i].upKey == -1) {
+                paddles[i].automaticChoice();
+            }
+
             paddles[i].move();
             paddles[i].draw();
+
+
         }
     }
 

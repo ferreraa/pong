@@ -1,5 +1,5 @@
 //Paddle class
-function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
+function Paddle(x, y, width, height, style = 'blue', upKey = -1, downKey = -1 ) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -8,9 +8,9 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
 
     //speed of the bar
     var dy = 3;
-
+    var futureY = this.y + dy * this.direction;
     //indicates how the bar must move (1 = down, 0 = don't move, -1 = up)
-    this.direction = 0;
+    this.direction = upKey == -1 ? 1 : 0;
 
     //needed in private functions.
     var that = this;
@@ -36,8 +36,8 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
             return;
         }
 
-        var futureY = this.y + dy*this.direction;
-        if(futureY > 0 && futureY + this.height < canvas.height) {
+//        var futureY = this.y + dy*this.direction;
+        if( checkWallCollision() ) {
             this.y = futureY;
         }
     }
@@ -50,6 +50,25 @@ function Paddle(x, y, width, height, upKey, downKey, style = 'blue') {
         c.fill();
 
     }
+
+    //return true if there is a collision (top/bot sides only)
+    function checkWallCollision() {
+        futureY = that.y + dy*that.direction;
+        // console.log(that.direction);
+        // console.log(futureY > 0);
+        // console.log(futureY + that.height < canvas.height);
+        return futureY >= 0 && futureY + that.height <= canvas.height;
+    }
+
+
+    this.automaticChoice = function() {
+        if(checkWallCollision()) {
+            this.direction *= -1;
+        }
+    } 
+
+
+
 
 
 

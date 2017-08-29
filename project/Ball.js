@@ -7,7 +7,12 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
 
     this.velocity = [dx, dy];
 
+    this.colliding = false;
+
     var that = this;
+
+    var old_x = x;
+    var old_y = y;
 
     //draw the ball
     this.draw = function() {
@@ -20,12 +25,20 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
     //move the ball
     this.move = function() {
         //move the ball
+        old_x = this.x;
+        old_y = this.y;
+
         this.x+=this.velocity[0];
         this.y+=this.velocity[1];
         
          //change direction when there is a collision
         checkWallCollisions();    
 
+    }
+
+    this.lastPos = function() {
+        this.x = old_x;
+        this.y = old_y;
     }
 
     //check the collisions with the top and bottom walls
@@ -39,6 +52,15 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
 
         if(that.y-that.r <= 0 || that.y+that.r >= canvas.height) {
             that.velocity[1] *= -1;
+        }
+    }
+
+    this.getOutOf = function(paddle) {
+        if(this.y > paddle.y) {
+            this.y = paddle.y + paddle.height + this.r
+        }
+        else {
+            this.y = paddle.y - this.r
         }
     }
 
