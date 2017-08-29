@@ -56,7 +56,7 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
     }
 
     this.getOutOf = function(paddle) {
-        if(this.y > paddle.y) {
+        if(this.y > paddle.y + paddle.height/2) {
             this.y = paddle.y + paddle.height + this.r
         }
         else {
