@@ -5,6 +5,7 @@ var World = new function() {
 
     //list of paddles
     var paddles = new Array();
+    this.score = [0,0]
 
 
     var that = this;
@@ -31,26 +32,20 @@ var World = new function() {
         for(var i = 0 ; i < balls.length ; i++) {
             for(var j = 0 ; j < paddles.length ; j++) {
                 if (typeof balls[i].colliding[j] === 'undefined' ) {
-                  console.log("ups")
                   balls[i].colliding[j] = false;
                 }
-                console.log(balls[i].colliding[j]);
 
                 if( RectBallColliding(balls[i], paddles[j]) ) {
                     paddles[j].stopPaddle();
-                    console.log("if1");
 
                     if( balls[i].colliding[j] ) {
                         balls[i].getOutOf(paddles[j]);
-                        console.log("if2");
                     } else {
                         balls[i].colliding[j] = true;
-                        console.log("else first collision");
                     }
 
                 } else {
                     balls[i].colliding[j] = false;
-                    console.log("not colliding");
 
 
                 }
@@ -77,10 +72,16 @@ var World = new function() {
 
     this.evolve = function() {
         evolveBalls();
-
+        printScore();
         checkBallPaddleCollisions();
 
         evolvePaddles();
+
+    }
+    function printScore(){
+      c.font = "30px Arial";
+      c.fillText(that.score[0], canvas.width/4 , canvas.height/10 );
+      c.fillText(that.score[1], canvas.width*3/4 , canvas.height/10 );
 
     }
 
@@ -116,6 +117,7 @@ var World = new function() {
         }
 
     }
+
 
     this.keyReleasedInteraction = function(key) {
         for (var i = paddles.length - 1; i >= 0; i--) {
