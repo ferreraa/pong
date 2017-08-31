@@ -80,10 +80,10 @@ function Paddle(x, y, width, height, style = 'blue', upKey = -1, downKey = -1 ) 
     **/
     this.getHitBoxes = function(ball) {
         //retrieve the ball's speed
-        var ballDX = ball.velocity[0];
-        var ballDY = ball.velocity[1];
+        let ballDX = ball.velocity[0];
+        let ballDY = ball.velocity[1];
 
-        var result = new Array();
+        let result = new Array();
         result[0] = {
             x:this.x,
             y:this.y,

@@ -157,8 +157,10 @@ function RectBallColliding(ball,paddle){
 
 }
 
+
+/*
 function BallPaddleColliding(ball, paddle) {
-/*    //array of rectangles (Rectangle : {x,y,w,h}). left&right sides: 0&1. top&bottom: 2&3
+    //array of rectangles (Rectangle : {x,y,w,h}). left&right sides: 0&1. top&bottom: 2&3
     var paddleHitBoxes = paddle.getHitBoxes(ball);
 
     //if the ball collides with the left/right side, dx*-1
@@ -172,9 +174,9 @@ function BallPaddleColliding(ball, paddle) {
         || RectBallColliding(ball, paddleHitBoxes[3])) {
         ball.velocity[1] *= -1;
     }
-*/
-}
 
+}
+*/
 /*
 world.addBall ( new Ball(x,y,r, style...));
 */
