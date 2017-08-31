@@ -58,6 +58,20 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
             that.velocity[1] *= -1;
         }
     }
+    var checkBallCollisions = function(ball){
+      let Distance = sqrt((this.x - ball.x)^2 + (this.y - ball.y)^2)
+      if (Distance <= this.r + ball.r){
+          this.velocity[0] *= -1
+          this.velocity[1] *= -1
+          ball.velocity[0] *= -1
+          ball.velocity[1] *= -1
+          var vect = [this.x - ball.x, this.y - ball.y];
+          let overlappingDistance = this.r +ball.r - Distance
+      }
+
+
+
+    }
 
     this.getOutOf = function(paddle) {
         if(this.y > paddle.y + paddle.height/2) {
