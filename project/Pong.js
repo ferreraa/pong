@@ -39,6 +39,8 @@ var middle = [canvas.width/2 , canvas.height/2]
 
 //var ball = new Ball(50, 50, 20, 'blue', 3, 3)
 World.add(new Ball(middle[0], middle[1], 20, 'blue', 3, 3));
+World.add(new Ball(3, 3, 20, 'blue', 3, 3));
+
 World.add(new Paddle(1,1, paddleWidths, paddleHeights, 'red' ,38, 40 ));
 
 

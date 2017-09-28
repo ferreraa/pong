@@ -42,6 +42,12 @@ var createScene = function () {
     box = BABYLON.Mesh.CreateBox("box", boxSize, scene, false, BABYLON.Mesh.DEFAULTSIDE);
     box.position = new BABYLON.Vector3(5,boxSize/2,0);
 
+
+    var material = new BABYLON.StandardMaterial("piedras",scene);
+    material.diffuseTexture = new BABYLON.Texture("gfs.png",scene);
+    material.bumpTexture = new BABYLON.Texture("gfsb.png",scene);
+    box.material = material;
+
     objects.push(box);
     originalPositions.push(new BABYLON.Vector3(box.position.x, box.position.y, box.position.z));
 
@@ -56,7 +62,7 @@ var createScene = function () {
     // Move the sphere upward 1/2 its height
     sphere.position.y = 1;
     sphere.position.z = 0;
-    
+
     objects.push(sphere);
     originalPositions.push(new BABYLON.Vector3(sphere.position.x, sphere.position.y, sphere.position.z));
 
@@ -79,10 +85,13 @@ var createScene = function () {
 var scene = createScene();
 // Register a render loop to repeatedly render the scene
 engine.runRenderLoop(function () {
+
     scene.render();
 
+
+
     ground.rotation.y +=rotationSpeed;
-    
+
 /*    for (var i = objects.length - 1; i >= 0; i--) {
         rotateObject(objects[i],i);
     }
@@ -90,7 +99,7 @@ engine.runRenderLoop(function () {
     rotateObject(box,0);
     inverseRotateObject(cylinder,1);
 
-    
+
 
 });
 // Watch for browser/canvas resize events

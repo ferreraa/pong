@@ -18,7 +18,11 @@ var ny = [];
 var nVerticesPolys = [];
 
 
-var numPoints = 7;
+var numPoints = 6;
+var figuras = [4,5,6,7,8]
+
+
+
 var radius = 200;
 
 var styles = ['red', 'pink', 'purple', 'blue', 'green', 'yellow', 'black' ];
@@ -37,7 +41,7 @@ window.onload = function()
   drawPoly(x0, y0);
 
 
-  [xs2, ys2] = generatePoly(radius/10, numPoints);
+  [xs2, ys2] = generatePoly(radius/10, figuras[0]);
 
   for (var i = 0 ; i < numPoints ; i++) {
     let x02, y02;

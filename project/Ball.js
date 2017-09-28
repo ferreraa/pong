@@ -67,6 +67,7 @@ function Ball(x, y, r, style = 'blue', dx = 0, dy = 0) {
           ball.velocity[1] *= -1
           var vect = [this.x - ball.x, this.y - ball.y];
           let overlappingDistance = this.r +ball.r - Distance
+          let sumDistance = (vect * overlappingDistance)/2
       }
 
 
